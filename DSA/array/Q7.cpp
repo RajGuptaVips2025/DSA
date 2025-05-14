@@ -43,7 +43,8 @@ int Delete(struct Array *arr, int index){
 int main() {
     struct Array arr = {{2, 3, 4, 5, 6}, 10, 5};
 
-    printf("%d\n", Delete(&arr, 3));
+    printf("%d\n", Delete(&arr, 3)); // for c
+    cout << "Deleted element: " << Delete(&arr, 2) << endl; // for c++
     Display(arr);
     return 0;
 }
