@@ -1,0 +1,36 @@
+// Sparse Matrix
+
+/*
+1. Definition of Sparse Matrix.
+    In Data Structures and Algorithms (DSA), a sparse matrix is a matrix in which most of the elements are zero. These matrices are common in scientific computations, machine learning, and graph-related problems, where storing and computing with large matrices that are mostly empty (zero) is inefficient using normal 2D arrays.
+
+2. Representation of Sparse Matrix.
+    a. Triplet Representation 
+        Each non-zero element is stored with its (row, column, value).
+        Exapmple:   Row | Col | Value 
+                     0  |  3  |  5
+                     1  |  1  |  8
+                     3  |  2  |  3
+    b. Compressed Sparse Row (CSR)
+        values[] – stores all non-zero elements.
+        colIndex[] – stores column indices of values[].
+        rowStart[] – stores cummulative of total non-zero element in each row.
+        Exapmple: Matrix:
+                    0 0 1
+                    2 0 0
+                    0 3 0
+            values[]   = [1, 2, 3]
+            colIndex[] = [2, 0, 1]
+            rowStart[] = [0, 1, 2, 3]
+
+3. Operations on Sparse Matrices
+    Addition: Merge triplet arrays.
+    Transpose: Swap row and column in each triplet.
+    Multiplication: Convert to CSR/CSC and multiply efficiently.
+
+4. When to Use Sparse Matrices?
+    Use sparse matrix representation when:
+    a. More than 50% of elements are zero.
+    b. Memory optimization is important.
+    c. Speed is a concern for matrix operations.
+*/
