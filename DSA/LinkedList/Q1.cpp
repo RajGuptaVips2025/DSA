@@ -130,24 +130,117 @@ struct Node * RSearch(struct Node *p, int key){
     return RSearch(p->next, key);    
 }
 
-int main() {
-    int A[] = {3, 5, 7, 20, 15, 12};
-    struct Node *temp;
-    create(A, 6);
-    // RDisplay(first);
-    temp = LSearch(first, 12);
-    temp = LSearch(first, 20);
-    temp = LSearch(first, 7);
-    if (temp){
-        printf("Key is found %d\n", temp->data);
+void Insert(struct Node *p, int index, int x){
+    struct Node *t;
+    int i;
+
+    if (index < 0 || index > count(p)) return;
+
+    t=(struct Node *)malloc(sizeof(struct Node));
+    t->data = x;
+
+    if (index == 0){
+        t->next = first;
+        first = t;
+    }else{
+        for (i = 0; i < index-1; i++){
+            p = p->next; // stops the loop before the x need to be inserted.
+        }
+        t->next = p->next;
+        p->next = t;        
     }
-    else
-    {
-        printf("Key is not found");
+}
+
+void SortedInsert(struct Node *p, int x){
+    struct Node *t, *q=NULL;
+
+    t=(struct  Node*)malloc(sizeof(struct Node));
+    t->data = x;
+    t->next = NULL;
+
+    if (first == NULL){
+        first = t;
+    }
+    else{
+        while (p != NULL && p->data<x){
+            q=p;
+            p=p->next;
+        }
+        if (p==first){
+            t->next=first;
+            first=t;
+        }
+        else{
+            t->next=q->next;
+            q->next=t;
+        }                
+    }
+}
+
+int Delete(struct Node *p, int index){
+    struct Node *q = NULL;
+    int x = -1, i;
+
+    if (index < 1 || index > count(p)){
+        return -1;
+    }
+    if (index == 1){
+        q=first;
+        x=first->data;
+        first=first->next;
+        free(q);
+        return x;
+    }
+    else{
+        for (i = 0; i < index-1; i++){
+            q=p;
+            p=p->next;
+        }
+        q->next=p->next;
+        x=p->data;
+        free(p);
+        return x;
     }    
+}
+
+int isSorted(struct Node *p){
+    int x = INT32_MIN;
+
+    while (p!=NULL){
+        if (p->data < x){
+            return 0;
+        }
+        x=p->data;
+        p=p->next;
+    }
+    return 1;
+}
+
+void RemoveDuplicate(struct Node *p){
+    struct Node *q = p->next;
+
+    while (q!=NULL){
+        if (p->data!=q->data){
+            p=q;
+            q=q->next;
+        }
+        else{
+            p->next=q->next;
+            free(q);
+            q=p->next;
+        }
+        
+    }
+    
+}
+
+int main() {
+    int A[] = {3, 5, 5, 7, 12, 50, 20, 20, 40};
+    create(A, 9);
+    
+    RemoveDuplicate(first);
+
     Display(first);
-    // printf("The length of the linked list is %d\n", Rcount(first));
-    // printf("The length of the linked list is %d\n", Rsum(first));
-    // printf("The maximum element in linked list is %d", RMax(first));
+    printf("\n\n");
     return 0;
 }
